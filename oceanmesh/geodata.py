@@ -699,8 +699,8 @@ class DEM(Grid):
         a raster to dst_crs
         """
         dst_crs = CRS.from_user_input(dst_crs)
-        if not xry.crs.equals(dst_crs):
-            msg = f"Reprojecting raster from {xry.crs} to {dst_crs}"
+        if not xry.rio.crs.to_epsg() == dst_crs:
+            msg = f"Reprojecting raster from {xry.rio.crs.to_epsg()} to {dst_crs}"
             logger.debug(msg)
             xry = xry.rio.reproject(dst_crs)
         return xry
